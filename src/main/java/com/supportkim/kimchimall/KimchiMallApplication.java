@@ -2,12 +2,14 @@ package com.supportkim.kimchimall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-public class KimchimallApplication {
+@EnableJpaAuditing
+public class KimchiMallApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KimchimallApplication.class, args);
+		SpringApplication.run(KimchiMallApplication.class, args);
 	}
 
 }
