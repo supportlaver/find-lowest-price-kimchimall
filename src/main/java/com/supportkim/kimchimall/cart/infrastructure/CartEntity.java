@@ -1,13 +1,23 @@
 package com.supportkim.kimchimall.cart.infrastructure;
 
+import com.supportkim.kimchimall.common.global.BaseEntity;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "carts")
-public class CartEntity {
+@Getter @Builder
+@AllArgsConstructor(access= AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class CartEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cart_id")
     private Long id;
+
+    // 카트(장바구니) 에 들어있는 수량
+    private int quantity;
+
+
 }
