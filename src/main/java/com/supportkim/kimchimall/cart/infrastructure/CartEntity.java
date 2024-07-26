@@ -1,5 +1,6 @@
 package com.supportkim.kimchimall.cart.infrastructure;
 
+import com.supportkim.kimchimall.cart.domain.Cart;
 import com.supportkim.kimchimall.common.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,6 +19,21 @@ public class CartEntity extends BaseEntity {
 
     // 카트(장바구니) 에 들어있는 수량
     private int quantity;
+
+    public static CartEntity from(Cart cart) {
+        return CartEntity.builder()
+                .id(cart.getId())
+                .quantity(cart.getQuantity())
+                .build();
+    }
+
+    public Cart toModel() {
+        return Cart.builder()
+                .id(id)
+                .quantity(quantity)
+                .build();
+
+    }
 
 
 }

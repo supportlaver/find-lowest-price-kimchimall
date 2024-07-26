@@ -13,7 +13,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     private final MemberJpaRepository memberJpaRepository;
     @Override
     public Member save(Member member) {
-        return null;
+        return memberJpaRepository.save(MemberEntity.from(member)).toModel();
     }
 
     @Override

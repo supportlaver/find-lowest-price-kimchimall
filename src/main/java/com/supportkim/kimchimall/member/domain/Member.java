@@ -18,6 +18,7 @@ public class Member {
     private Address address;
     private String email;
     private String phoneNumber;
+    private String name;
     private Cart cart;
     private List<Order> orders = new ArrayList<>();
 }

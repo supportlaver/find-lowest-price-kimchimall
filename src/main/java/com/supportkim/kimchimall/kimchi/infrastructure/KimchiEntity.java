@@ -3,6 +3,7 @@ package com.supportkim.kimchimall.kimchi.infrastructure;
 
 import com.supportkim.kimchimall.category.infrastructure.CategoryEntity;
 import com.supportkim.kimchimall.common.global.BaseEntity;
+import com.supportkim.kimchimall.kimchi.domain.Kimchi;
 import com.supportkim.kimchimall.orderkimchi.infrastructure.OrderKimchiEntity;
 import com.supportkim.kimchimall.review.infrastructure.ReviewEntity;
 import jakarta.persistence.*;
@@ -30,4 +31,22 @@ public class KimchiEntity extends BaseEntity {
 
     @OneToOne(fetch = LAZY)
     private CategoryEntity category;
+
+    public static KimchiEntity from(Kimchi kimchi) {
+        return KimchiEntity.builder()
+                .id(kimchi.getId())
+                .name(kimchi.getName())
+                .category(kimchi.getCategory())
+                .price(kimchi.getPrice())
+                .build();
+    }
+
+    public Kimchi toModel() {
+        return Kimchi.builder()
+                .id(id)
+                .category(category)
+                .name(name)
+                .price(price)
+                .build();
+    }
 }

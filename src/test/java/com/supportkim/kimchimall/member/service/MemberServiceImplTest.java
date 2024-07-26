@@ -1,31 +1,37 @@
 package com.supportkim.kimchimall.member.service;
 
-import com.supportkim.kimchimall.member.controller.request.MemberRequestDto;
+import com.supportkim.kimchimall.cart.service.CartServiceImpl;
+import com.supportkim.kimchimall.member.controller.response.MemberResponseDto;
 import com.supportkim.kimchimall.member.domain.Member;
 import com.supportkim.kimchimall.member.infrastructure.Address;
+import com.supportkim.kimchimall.mock.FakeCartRepository;
 import com.supportkim.kimchimall.mock.FakeMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 import static com.supportkim.kimchimall.member.controller.request.MemberRequestDto.*;
+import static com.supportkim.kimchimall.member.controller.response.MemberResponseDto.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 최대한 외부 라이브러리 없이 테스트를 할 것
  */
 class MemberServiceImplTest {
     private MemberServiceImpl memberService;
+    private CartServiceImpl cartService;
     @BeforeEach
     void init() {
         FakeMemberRepository fakeMemberRepository = new FakeMemberRepository();
+        FakeCartRepository fakeCartRepository = new FakeCartRepository();
+        this.cartService = CartServiceImpl.builder()
+                .cartRepository(fakeCartRepository)
+                .build();
         this.memberService = MemberServiceImpl.builder()
                 .memberRepository(fakeMemberRepository)
+                .cartService(cartService)
                 .build();
+
     }
 
 
@@ -40,18 +46,18 @@ class MemberServiceImplTest {
                 .emdNo(123)
                 .build();
         String phoneNumber = "010-1234-1234";
-        MemberJoin memberJoinDto = MemberJoin.builder()
+        MemberJoinRequest memberJoinRequestDto = MemberJoinRequest.builder()
                 .address(address)
                 .phoneNumber(phoneNumber)
                 .name(name)
                 .build();
 
         //when
-        Member savedMember = memberService.join(memberJoinDto);
+        MemberJoinResponse savedMember = memberService.join(memberJoinRequestDto);
 
         //then
         Member findMember = memberService.findById(savedMember.getId());
-        assertThat(savedMember).isEqualTo(findMember);
+        assertThat(savedMember.getId()).isEqualTo(findMember.getId());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.supportkim.kimchimall.delivery.infrastructure;
 
 import com.supportkim.kimchimall.common.global.BaseEntity;
+import com.supportkim.kimchimall.delivery.domain.Delivery;
 import com.supportkim.kimchimall.member.infrastructure.Address;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,4 +25,22 @@ public class DeliveryEntity extends BaseEntity {
 
     @Enumerated(value = STRING)
     private DeliveryStatus deliveryStatus;
+
+    public static DeliveryEntity from(Delivery delivery) {
+        return DeliveryEntity.builder()
+                .id(delivery.getId())
+                .address(delivery.getAddress())
+                .deliveryStatus(delivery.getDeliveryStatus())
+                .build();
+
+    }
+
+    public Delivery toModel() {
+        return Delivery.builder()
+                .id(id)
+                .deliveryStatus(deliveryStatus)
+                .address(address)
+                .build();
+
+    }
 }

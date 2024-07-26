@@ -38,8 +38,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	// https://mvnrepository.com/artifact/junit/junit
+	// Test
 	testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+
+	// Security
+	// implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 tasks.named('test') {
