@@ -31,13 +31,12 @@ public class MemberEntity extends BaseEntity {
     private String password;
     private Address address;
     private String email;
+    private String phoneNumber;
 
     @OneToOne(fetch = LAZY)
     private CartEntity cart;
 
-    @OneToMany(cascade = ALL)
-    private List<NotificationEntity> notifications = new ArrayList<>();
 
-    @OneToMany(cascade = ALL)
+    @OneToMany(cascade = ALL , mappedBy = "member")
     private List<OrderEntity> orders = new ArrayList<>();
 }

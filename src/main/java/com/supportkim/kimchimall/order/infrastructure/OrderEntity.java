@@ -3,6 +3,7 @@ package com.supportkim.kimchimall.order.infrastructure;
 import com.supportkim.kimchimall.common.global.BaseEntity;
 import com.supportkim.kimchimall.delivery.domain.Delivery;
 import com.supportkim.kimchimall.delivery.infrastructure.DeliveryEntity;
+import com.supportkim.kimchimall.member.infrastructure.MemberEntity;
 import com.supportkim.kimchimall.orderkimchi.infrastructure.OrderKimchiEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,4 +34,7 @@ public class OrderEntity extends BaseEntity {
     @OneToMany(mappedBy = "order" , cascade = ALL)
     private List<OrderKimchiEntity> orderKimchis = new ArrayList<>();
 
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
 }

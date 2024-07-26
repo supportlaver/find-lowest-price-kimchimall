@@ -28,9 +28,6 @@ public class KimchiEntity extends BaseEntity {
     private String name;
     private int price;
 
-    @OneToMany(cascade = ALL)
-    private List<ReviewEntity> reviews = new ArrayList<>();
-
     @OneToOne(fetch = LAZY)
     private CategoryEntity category;
 }

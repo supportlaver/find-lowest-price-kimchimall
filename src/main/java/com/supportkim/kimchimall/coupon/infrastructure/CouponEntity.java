@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import static jakarta.persistence.EnumType.*;
+import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Table(name = "coupons")
@@ -26,7 +27,7 @@ public class CouponEntity extends BaseEntity {
     @Enumerated(value = STRING)
     private CouponStatus couponStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 }

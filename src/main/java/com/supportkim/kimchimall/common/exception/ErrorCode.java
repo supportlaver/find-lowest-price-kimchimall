@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
 
-    SUCCESS(HttpStatus.OK , "success" , "요청에 성공했습니다.");
+    SUCCESS(HttpStatus.OK , "success" , "요청에 성공했습니다."),
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND , "not found" , "요청한 ID 에 해당하는 회원이 존재하지 않습니다.");
 
     private final HttpStatus status;
     private final String code;

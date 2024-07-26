@@ -1,8 +1,11 @@
 package com.supportkim.kimchimall.review.infrastructure;
 
 import com.supportkim.kimchimall.common.global.BaseEntity;
+import com.supportkim.kimchimall.kimchi.infrastructure.KimchiEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Table(name = "reviews")
@@ -17,4 +20,8 @@ public class ReviewEntity extends BaseEntity {
 
     private String comment;
     private int score;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "kimchi_id")
+    private KimchiEntity kimchi;
 }
