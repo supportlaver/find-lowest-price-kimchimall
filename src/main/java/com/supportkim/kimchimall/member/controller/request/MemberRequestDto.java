@@ -19,14 +19,14 @@ public class MemberRequestDto {
         private String loginId;
         private String password;
 
-        public static Member toModel(MemberJoinRequest request , Cart cart) {
+        public static Member toModel(MemberJoinRequest request , Cart cart, String encodePassword) {
             return Member.builder()
                     .email(request.getEmail())
                     .name(request.getName())
                     .phoneNumber(request.getPhoneNumber())
                     .address(request.getAddress())
                     .loginId(request.getLoginId())
-                    .password(request.getPassword())
+                    .password(encodePassword)
                     .orders(new ArrayList<>())
                     .cart(cart)
                     .build();
