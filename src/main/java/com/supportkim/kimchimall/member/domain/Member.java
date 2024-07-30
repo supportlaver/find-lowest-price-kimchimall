@@ -2,6 +2,7 @@ package com.supportkim.kimchimall.member.domain;
 
 
 import com.supportkim.kimchimall.cart.domain.Cart;
+import com.supportkim.kimchimall.common.security.jwt.TokenMapping;
 import com.supportkim.kimchimall.member.infrastructure.Address;
 import com.supportkim.kimchimall.order.domain.Order;
 import lombok.Builder;
@@ -21,4 +22,11 @@ public class Member {
     private String name;
     private Cart cart;
     private List<Order> orders = new ArrayList<>();
+    private String refreshToken;
+    private String role;
+
+    // Refresh 토큰 설정
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }

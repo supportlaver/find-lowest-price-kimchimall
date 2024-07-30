@@ -10,4 +10,8 @@ public interface MemberService {
     MemberJoinResponse join(MemberJoinRequest memberJoinRequestDto);
 
     Member findById(Long id);
+
+    MemberLoginResponse login(MemberLoginRequest memberLoginRequestDto);
+
+    Member findByLoginId(String loginId);
 }

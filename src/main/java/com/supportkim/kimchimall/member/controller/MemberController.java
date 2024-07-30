@@ -25,4 +25,5 @@ public class MemberController {
     public ResponseEntity<BaseResponse<MemberJoinResponse>> join(@RequestBody MemberJoinRequest memberJoinRequest) {
         return ResponseEntity.ok().body(new BaseResponse<>(memberService.join(memberJoinRequest)));
     }
+
 }

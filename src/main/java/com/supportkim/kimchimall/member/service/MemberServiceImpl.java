@@ -37,6 +37,17 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member findById(Long id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_PK_ID_NOT_FOUND));
+    }
+
+    @Override
+    public MemberLoginResponse login(MemberLoginRequest memberLoginRequestDto) {
+        throw new RuntimeException("no development");
+    }
+
+    @Override
+    public Member findByLoginId(String loginId) {
+        return memberRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_LOGIN_ID_NOT_FOUND));
     }
 }

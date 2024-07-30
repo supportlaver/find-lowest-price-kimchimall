@@ -70,7 +70,8 @@ public class MemberEntity extends BaseEntity {
                 .email(email)
                 .phoneNumber(phoneNumber)
                 .address(address)
-                .orders(orders.stream().map(OrderEntity::toModel).collect(toList()))
+                // 지연로딩 -> could not initialize proxy - no Session 오류 발생
+                //.orders(orders.stream().map(OrderEntity::toModel).collect(toList()))
                 .build();
     }
 }

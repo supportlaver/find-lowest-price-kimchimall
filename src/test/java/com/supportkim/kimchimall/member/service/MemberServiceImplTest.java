@@ -6,6 +6,7 @@ import com.supportkim.kimchimall.member.domain.Member;
 import com.supportkim.kimchimall.member.infrastructure.Address;
 import com.supportkim.kimchimall.mock.FakeCartRepository;
 import com.supportkim.kimchimall.mock.FakeMemberRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,17 +40,21 @@ class MemberServiceImplTest {
     @DisplayName("회원가입 테스트")
     void 회원은_자체_로그인을_통해_회원가입을_할_수_있다() {
         //given
-        // 이름 , 주소 , 전화번호를 받는다.
+        // 이름 , 주소 , 전화번호 , 아이디 , 비밀번호를 받는다.
         String name = "JIWON";
         Address address = Address.builder()
                 .rnMgtSn("123-123")
                 .emdNo(123)
                 .build();
         String phoneNumber = "010-1234-1234";
+        String loginId = "loginId";
+        String password = "password";
         MemberJoinRequest memberJoinRequestDto = MemberJoinRequest.builder()
                 .address(address)
                 .phoneNumber(phoneNumber)
                 .name(name)
+                .loginId(loginId)
+                .password(password)
                 .build();
 
         //when
@@ -58,6 +63,23 @@ class MemberServiceImplTest {
         //then
         Member findMember = memberService.findById(savedMember.getId());
         assertThat(savedMember.getId()).isEqualTo(findMember.getId());
+    }
+
+    @Test
+    @DisplayName("로그인에 성공하면 JWT가 발급된다.")
+    void 로그인에_성공하면_JWT_가_발급된다() {
+        //given
+        MemberLoginRequest loginMember = MemberLoginRequest.builder()
+                .loginId("loginId")
+                .password("password")
+                .build();
+
+        //when
+        MemberLoginResponse loginResponseMember = memberService.login(loginMember);
+
+        //then
+        Member findMember = memberService.findById(loginResponseMember.getMemberId());
+        Assertions.assertThat(findMember.getRefreshToken()).isEqualTo(loginResponseMember.getTokenMapping().getRefreshToken());
     }
 
 }

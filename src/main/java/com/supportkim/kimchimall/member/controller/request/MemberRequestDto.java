@@ -3,8 +3,10 @@ package com.supportkim.kimchimall.member.controller.request;
 import com.supportkim.kimchimall.cart.domain.Cart;
 import com.supportkim.kimchimall.member.domain.Member;
 import com.supportkim.kimchimall.member.infrastructure.Address;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +33,12 @@ public class MemberRequestDto {
                     .cart(cart)
                     .build();
         }
+    }
+
+    @Builder @Getter
+    @NoArgsConstructor @AllArgsConstructor
+    public static class MemberLoginRequest {
+        private String loginId;
+        private String password;
     }
 }
