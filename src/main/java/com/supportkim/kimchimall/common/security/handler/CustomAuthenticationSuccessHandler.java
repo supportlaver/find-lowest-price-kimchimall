@@ -44,6 +44,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         MemberLoginResponse loginResponse = MemberLoginResponse.from(member, token);
 
         om.writeValue(response.getWriter() , loginResponse);
+
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

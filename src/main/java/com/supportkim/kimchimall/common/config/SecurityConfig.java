@@ -40,7 +40,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authRequest -> authRequest.requestMatchers(
                         new AntPathRequestMatcher("/**")
-                ).permitAll())
+                ).permitAll().anyRequest().authenticated())
                 .addFilterBefore(authenticationFilter() , UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(myJwtFilter() , CustomAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
