@@ -55,8 +55,5 @@ public class FakeMemberRepository implements MemberRepository {
         return Optional.empty();
     }
 
-    @Override
-    public Optional<Member> findByRefreshToken(String refreshToken) {
-        return Optional.empty();
-    }
+
 }

@@ -10,6 +10,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static com.supportkim.kimchimall.member.controller.request.MemberRequestDto.*;
 import static com.supportkim.kimchimall.member.controller.response.MemberResponseDto.*;
@@ -19,6 +21,10 @@ import static org.assertj.core.api.Assertions.*;
  * 최대한 외부 라이브러리 없이 테스트를 할 것
  */
 class MemberServiceImplTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
     private MemberServiceImpl memberService;
     private CartServiceImpl cartService;
     @BeforeEach
@@ -63,23 +69,6 @@ class MemberServiceImplTest {
         //then
         Member findMember = memberService.findById(savedMember.getId());
         assertThat(savedMember.getId()).isEqualTo(findMember.getId());
-    }
-
-    @Test
-    @DisplayName("로그인에 성공하면 JWT가 발급된다.")
-    void 로그인에_성공하면_JWT_가_발급된다() {
-        //given
-        MemberLoginRequest loginMember = MemberLoginRequest.builder()
-                .loginId("loginId")
-                .password("password")
-                .build();
-
-        //when
-        MemberLoginResponse loginResponseMember = memberService.login(loginMember);
-
-        //then
-        Member findMember = memberService.findById(loginResponseMember.getMemberId());
-        Assertions.assertThat(findMember.getRefreshToken()).isEqualTo(loginResponseMember.getTokenMapping().getRefreshToken());
     }
 
 }
