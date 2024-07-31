@@ -55,5 +55,10 @@ public class FakeMemberRepository implements MemberRepository {
         return Optional.empty();
     }
 
+    @Override
+    public void deleteAll() {
+        data.clear();
+    }
+
 
 }

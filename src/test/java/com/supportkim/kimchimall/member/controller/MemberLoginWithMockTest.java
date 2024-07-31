@@ -5,6 +5,7 @@ import com.supportkim.kimchimall.common.security.jwt.JwtService;
 import com.supportkim.kimchimall.member.controller.port.MemberService;
 import com.supportkim.kimchimall.member.domain.Member;
 import com.supportkim.kimchimall.member.service.port.MemberRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class MemberLoginWithMockTest {
     private JwtService jwtService;
 
     private final ObjectMapper om = new ObjectMapper();
+
+    @AfterEach
+    void delete() {
+        memberRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("로그인에 성공하면 JWT가 발급되며 JWT 는 Email 을 기반으로 만들어진다.")

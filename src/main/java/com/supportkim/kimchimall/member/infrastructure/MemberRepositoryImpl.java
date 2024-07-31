@@ -34,4 +34,9 @@ public class MemberRepositoryImpl implements MemberRepository {
         return Optional.ofNullable(memberJpaRepository.findByEmail(email).toModel());
     }
 
+    @Override
+    public void deleteAll() {
+        memberJpaRepository.deleteAll();
+    }
+
 }
