@@ -1,0 +1,26 @@
+config:
+  target: 'http://localhost:8080'
+  phases:
+    # 부하 시작 전 예열 (Warm up)
+    - duration: 10
+      arrivalRate: 5
+      name: Warm up - 1
+
+      # 부하 시작
+    - duration: 10
+      arrivalRate: 5
+      rampTo: 200
+      name: Burst Load - 2(점점 트래픽 증가)
+      # 부하 유지
+    - duration: 10
+      arrivalRate: 5
+      name: Sustained Load - 3
+      # 부하를 점점 줄이기
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 5
+      name: End of load - 4
+scenarios:
+  - flow:
+      - get:
+          url: "/api/lowest-price?type=배추김치&sort=dsc"
