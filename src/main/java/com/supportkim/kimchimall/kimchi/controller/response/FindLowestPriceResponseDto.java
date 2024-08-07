@@ -15,10 +15,10 @@ public class FindLowestPriceResponseDto {
     private int total;
     private int start;
     private int display;
-    private List<ItemDTO> items;
+    private List<ItemDto> items;
 
     @Getter @Builder
-    static class ItemDTO {
+    public static class ItemDto {
         private String title;
         private String link;
         private String image;

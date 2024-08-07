@@ -20,9 +20,9 @@ public class KimchiController {
     @GetMapping("/lowest-price")
     public ResponseEntity<BaseResponse<FindLowestPriceResponseDto>> getLowestPrice(
             @RequestParam("type") String type ,
-            @RequestParam("sort") String sort) {
+            @RequestParam(value = "display" , defaultValue = "10") int display ,
+            @RequestParam(value = "start" , defaultValue = "1") int start) {
 
-        return ResponseEntity.ok().body(new BaseResponse<>(kimchiService.getFindLowestPrice(type,sort)));
+        return ResponseEntity.ok().body(new BaseResponse<>(kimchiService.getFindLowestPrice(type,"asc",display,start)));
     }
-
 }

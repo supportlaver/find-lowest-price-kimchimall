@@ -4,5 +4,5 @@ import com.supportkim.kimchimall.kimchi.controller.response.FindLowestPriceRespo
 import com.supportkim.kimchimall.kimchi.domain.KimchiType;
 
 public interface KimchiService {
-    FindLowestPriceResponseDto getFindLowestPrice(String type , String sort);
+    FindLowestPriceResponseDto getFindLowestPrice(String type , String sort , int display, int start);
 }
