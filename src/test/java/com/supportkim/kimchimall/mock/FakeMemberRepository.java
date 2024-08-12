@@ -56,6 +56,11 @@ public class FakeMemberRepository implements MemberRepository {
     }
 
     @Override
+    public Optional<Member> findByName(String name) {
+        return Optional.empty();
+    }
+
+    @Override
     public void deleteAll() {
         data.clear();
     }

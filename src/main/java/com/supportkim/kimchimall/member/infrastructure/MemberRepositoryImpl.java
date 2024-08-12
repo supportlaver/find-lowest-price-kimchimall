@@ -35,6 +35,11 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public Optional<Member> findByName(String name) {
+        return Optional.ofNullable(memberJpaRepository.findByName(name).toModel());
+    }
+
+    @Override
     public void deleteAll() {
         memberJpaRepository.deleteAll();
     }

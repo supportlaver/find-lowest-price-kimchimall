@@ -10,6 +10,7 @@ import com.supportkim.kimchimall.member.service.port.MemberRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,5 +50,11 @@ public class MemberServiceImpl implements MemberService {
     public Member findByLoginId(String loginId) {
         return memberRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new BaseException(ErrorCode.MEMBER_LOGIN_ID_NOT_FOUND));
+    }
+
+    @Override
+    public Member findByName(String name) {
+        return memberRepository.findByName(name).orElseThrow(() -> new BaseException(ErrorCode.MEMBER_NOT_FOUND));
+
     }
 }

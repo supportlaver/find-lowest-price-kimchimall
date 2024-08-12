@@ -25,6 +25,8 @@ public class FindLowestPriceResponseDto implements Serializable{
                 .build();
     }
 
+
+
     @Getter @Builder
     @NoArgsConstructor @AllArgsConstructor
     public static class ItemDto implements Serializable {
@@ -42,5 +44,20 @@ public class FindLowestPriceResponseDto implements Serializable{
         private String category2;
         private String category3;
         private String category4;
+
+        @Override
+        public String toString() {
+            return "ItemDto{" +
+                    "title='" + title + '\'' +
+                    ", link='" + link + '\'' +
+                    ", lprice='" + lprice + '\'' +
+                    ", hprice='" + hprice + '\'' +
+                    ", mallName='" + mallName + '\'' +
+                    ", productId='" + productId + '\'' +
+                    ", productType='" + productType + '\'' +
+                    ", brand='" + brand + '\'' +
+                    ", maker='" + maker + '\'' +
+                    '}';
+        }
     }
 }

@@ -29,6 +29,7 @@ public class LowestPriceKimchiCacheRepository {
     }
 
     public List<ItemDto> getLowestPriceKimchiCache(String type) {
+        List<ItemDto> range = lowestPriceKimchiRedisTemplate.opsForList().range(type, 0, 9);
         return lowestPriceKimchiRedisTemplate
                 .opsForList().range(type, 0, 9);
     }

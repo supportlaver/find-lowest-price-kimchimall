@@ -66,6 +66,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation group: 'org.redisson', name: 'redisson-spring-boot-starter', version: '3.27.2'
 
+	//OAuth2 Client
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 
 }
 

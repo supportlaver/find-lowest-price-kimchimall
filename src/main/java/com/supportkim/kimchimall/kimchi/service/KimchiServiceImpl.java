@@ -43,35 +43,25 @@ public class KimchiServiceImpl implements KimchiService {
         log.info("현재 Naver API 에 문제가 있습니다. 잠시후에 다시 시도해주세요.");
         // 캐시된 상품을 노출
         List<ItemDto> cacheList = lowestPriceKimchiCacheRepository.getLowestPriceKimchiCache(type);
-        for (ItemDto itemDto : cacheList) {
-            log.info("itemDtoProductId = {} " , itemDto.getProductId());
-            log.info("itemDtoLprice = {} " , itemDto.getLprice());
-            log.info("itemDtoHrpice = {} " , itemDto.getHprice());
-        }
-        // 로그는 DB 에 저장 예정
 
+        // 로그는 DB 에 저장 예정
         log.info("fallback-> CallNotPermittedException : {}" , ex.getMessage());
         log.info("fallback-> CallNotPermittedException : {}" , ex.getStackTrace());
-        return new FindLowestPriceResponseDto();
-        //return FindLowestPriceResponseDto.from(lowestPriceKimchiCache,display,start);
+
+        return FindLowestPriceResponseDto.from(cacheList, display, start);
     }
 
     public FindLowestPriceResponseDto fallback(String type , String sort , int display , int start,TooManyRequests ex) {
         log.info("현재 사용자가 많아 요청 시간이 오래 걸리고 있습니다. 잠시후에 다시 시도해주세요");
         // 캐시한 상품을 노출
         List<ItemDto> cacheList = lowestPriceKimchiCacheRepository.getLowestPriceKimchiCache(type);
-        for (ItemDto itemDto : cacheList) {
-            log.info("itemDtoProductId = {} " , itemDto.getProductId());
-            log.info("itemDtoLprice = {} " , itemDto.getLprice());
-            log.info("itemDtoHrpice = {} " , itemDto.getHprice());
-        }
-        // 로그는 DB 에 저장 예정
 
+        // 로그는 DB 에 저장 예정
         log.info("fallback-> NaverApiException : {}" , ex.getMessage());
         log.info("fallback-> NaverAPiException : {}" , ex.getStackTrace());
+
         // Cache 된 상품을 반환한다.
-        return new FindLowestPriceResponseDto();
-        //return FindLowestPriceResponseDto.from(lowestPriceKimchiCache,display,start);
+        return FindLowestPriceResponseDto.from(cacheList, display, start);
     }
 
 }
