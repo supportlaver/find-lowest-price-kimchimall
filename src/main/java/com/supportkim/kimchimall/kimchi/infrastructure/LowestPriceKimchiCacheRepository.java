@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.supportkim.kimchimall.kimchi.controller.response.FindLowestPriceResponseDto.*;
@@ -20,17 +21,16 @@ public class LowestPriceKimchiCacheRepository {
 
     private final static Duration KIMCHI_CACHE_TTL = Duration.ofDays(3);
 
-    public void setLowestPriceKimchiCache(List<ItemDto> kimchis , String type) {
-        kimchis.forEach(
-                item -> lowestPriceKimchiRedisTemplate
-                        .opsForHash().put(KIMCHI_HASH_KEY,type,item)
+    public void setLowestPriceKimchiCache(List<ItemDto> kimchis, String type) {
+        kimchis.forEach(item ->
+                lowestPriceKimchiRedisTemplate
+                        .opsForList().rightPush(type, item)
         );
     }
 
     public List<ItemDto> getLowestPriceKimchiCache(String type) {
-        // Hash 로 빼서 가지고 와야한다.
-        return (List<ItemDto>) lowestPriceKimchiRedisTemplate
-                .opsForHash().get(KIMCHI_HASH_KEY, type);
+        return lowestPriceKimchiRedisTemplate
+                .opsForList().range(type, 0, 9);
     }
 
 }

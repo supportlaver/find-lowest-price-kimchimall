@@ -12,7 +12,7 @@ import java.util.List;
 
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class FindLowestPriceResponseDto {
+public class FindLowestPriceResponseDto implements Serializable{
     private int start;
     private int display;
     private List<ItemDto> items;
@@ -26,6 +26,7 @@ public class FindLowestPriceResponseDto {
     }
 
     @Getter @Builder
+    @NoArgsConstructor @AllArgsConstructor
     public static class ItemDto implements Serializable {
         private String title;
         private String link;

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.supportkim.kimchimall.kimchi.controller.response.FindLowestPriceResponseDto.*;
@@ -39,25 +40,38 @@ public class KimchiServiceImpl implements KimchiService {
      * 반환값 , 파라미터가 동일해야하며 추가로 Exception 인자까지 가지고 있어야한다.
      */
     public FindLowestPriceResponseDto fallback(String type , String sort , int display , int start,CallNotPermittedException ex) {
-        // 캐시된 상품을 노출
-        List<ItemDto> lowestPriceKimchiCache = lowestPriceKimchiCacheRepository.getLowestPriceKimchiCache(type);
-        // 로그는 DB 에 저장 예정
         log.info("현재 Naver API 에 문제가 있습니다. 잠시후에 다시 시도해주세요.");
+        // 캐시된 상품을 노출
+        List<ItemDto> cacheList = lowestPriceKimchiCacheRepository.getLowestPriceKimchiCache(type);
+        for (ItemDto itemDto : cacheList) {
+            log.info("itemDtoProductId = {} " , itemDto.getProductId());
+            log.info("itemDtoLprice = {} " , itemDto.getLprice());
+            log.info("itemDtoHrpice = {} " , itemDto.getHprice());
+        }
+        // 로그는 DB 에 저장 예정
+
         log.info("fallback-> CallNotPermittedException : {}" , ex.getMessage());
         log.info("fallback-> CallNotPermittedException : {}" , ex.getStackTrace());
-        return FindLowestPriceResponseDto.from(lowestPriceKimchiCache,display,start);
+        return new FindLowestPriceResponseDto();
+        //return FindLowestPriceResponseDto.from(lowestPriceKimchiCache,display,start);
     }
 
     public FindLowestPriceResponseDto fallback(String type , String sort , int display , int start,TooManyRequests ex) {
-        // 캐시한 상품을 노출
-        List<ItemDto> lowestPriceKimchiCache = lowestPriceKimchiCacheRepository.getLowestPriceKimchiCache(type);
-
-        // 로그는 DB 에 저장 예정
         log.info("현재 사용자가 많아 요청 시간이 오래 걸리고 있습니다. 잠시후에 다시 시도해주세요");
+        // 캐시한 상품을 노출
+        List<ItemDto> cacheList = lowestPriceKimchiCacheRepository.getLowestPriceKimchiCache(type);
+        for (ItemDto itemDto : cacheList) {
+            log.info("itemDtoProductId = {} " , itemDto.getProductId());
+            log.info("itemDtoLprice = {} " , itemDto.getLprice());
+            log.info("itemDtoHrpice = {} " , itemDto.getHprice());
+        }
+        // 로그는 DB 에 저장 예정
+
         log.info("fallback-> NaverApiException : {}" , ex.getMessage());
         log.info("fallback-> NaverAPiException : {}" , ex.getStackTrace());
         // Cache 된 상품을 반환한다.
-        return FindLowestPriceResponseDto.from(lowestPriceKimchiCache,display,start);
+        return new FindLowestPriceResponseDto();
+        //return FindLowestPriceResponseDto.from(lowestPriceKimchiCache,display,start);
     }
 
 }
